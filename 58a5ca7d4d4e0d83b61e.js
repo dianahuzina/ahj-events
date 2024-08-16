@@ -1,25 +1,4 @@
-/******/ (function() { // webpackBootstrap
-/******/ 	"use strict";
-
-;// CONCATENATED MODULE: ./src/js/character.js
-class Character {
-  constructor(element) {
-    this.element = element;
-  }
-  deleteCharacter() {
-    const cellActive = this.element.querySelector(".active");
-    if (cellActive) {
-      cellActive.classList.remove("active");
-    }
-  }
-  addCharacter() {
-    const cells = this.element.querySelectorAll(".field-cell");
-    const number = Math.floor(Math.random() * cells.length);
-    cells[number].classList.add("active");
-  }
-}
-;// CONCATENATED MODULE: ./src/js/app.js
-
+import Character from "./character.js";
 document.addEventListener("DOMContentLoaded", () => {
   const field = document.querySelector(".field");
   const cells = document.querySelectorAll(".field-cell");
@@ -53,9 +32,3 @@ document.addEventListener("DOMContentLoaded", () => {
     flag = false;
   }, 1000);
 });
-;// CONCATENATED MODULE: ./src/index.js
-
-
-/******/ })()
-;
-//# sourceMappingURL=main.js.map
