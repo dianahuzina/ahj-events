@@ -3,38 +3,41 @@ import Character from "./character.js";
 document.addEventListener("DOMContentLoaded", () => {
   const field = document.querySelector(".field");
   const cells = document.querySelectorAll(".field-cell");
-  let goblinIsMissed = false;
+  const userScore = document.querySelector(".user-score-number");
+  const goblinScore = document.querySelector(".goblin-score-number");
   const character = new Character(field);
 
   let goblinCounter = 0;
   let userCounter = 0;
+  let flag = false;
 
-  character.addCharacter();
+  cells.forEach(cell => {
+    cell.addEventListener("click", (e) => {
+      if (e.target.classList.contains("active")) {
+        userCounter++;
+      } else {
+        goblinCounter++;
+      } 
+      flag = true;
+    });
+  });
 
   setInterval(() => {
     character.deleteCharacter();
     character.addCharacter();
-    if (goblinIsMissed) {
-      goblinCounter++;
-    }
-    if (goblinCounter === 5) {
+
+    if (flag === false) goblinCounter++;
+    
+    userScore.textContent = `${userCounter}`;
+    goblinScore.textContent = `${goblinCounter}`;
+
+    if (goblinCounter >= 5) {
       alert("You lost. Your score: " + userCounter);
       goblinCounter = 0;
       userCounter = 0;
     }
-    cells.forEach((cell) => {
-      if (cell.classList.contains("cell-active")) {
-        cell.addEventListener("click", () => {
-          if (cell.classList.contains("cell-active")) {
-            userCounter++;
-          }
-          character.deleteCharacter();
-          goblinIsMissed = false;
-        })
-      } else {
-        goblinIsMissed = true;
-      }
-    });
+
+    flag = false;
   }, 1000);
 });
 

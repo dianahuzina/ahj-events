@@ -4,27 +4,17 @@ export default class Character {
   }
 
   deleteCharacter() {
-    const cellActive = this.element.querySelector(".cell-active");
-    const characterImage = this.element.querySelector(".character");
+    const cellActive = this.element.querySelector(".active");
 
-    if (cellActive && characterImage) {
-      cellActive.classList.remove("cell-active");
-      characterImage.remove();
+    if (cellActive) {
+      cellActive.classList.remove("active");
     }
   }
 
   addCharacter() {
     const cells = this.element.querySelectorAll(".field-cell");
-    const image = document.createElement("img");
     const number = Math.floor(Math.random() * cells.length);
 
-    for (let cell of cells) {
-      if (cell.dataset.id === number.toString()) {
-        cell.classList.add("cell-active");
-        image.classList.add("character");
-        image.src = '../img/goblin.png';
-        cell.appendChild(image);
-      }
-    }
+    cells[number].classList.add("active");
   }
 }
